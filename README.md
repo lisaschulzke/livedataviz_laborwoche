@@ -12,3 +12,8 @@
 ## Serialport auf NodeRed hinzufügen
 1. Extension auf node red installieren (serialport für nodered)
 2. Serial in, Port auswählen und deploy --> Daten werden vom Arduino gelesen (Serial in und debug node, so werden die arduinowerte im debugfenster auf nodered ausgegeben)
+
+## Sensordaten über MQTT verschicken
+Auf Clientseite den timestamp ersetzen durch serial in und hier den arduino auswählen.
+Diese Node dann mit mqtt out verbinden.
+Die Sensordaten werden jetzt an die Topic gesendet, die in der mqtt node definiert wurde.
