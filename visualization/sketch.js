@@ -6,6 +6,7 @@ let isDrawn = true;
 let xDirection;
 let yDirection;
 
+
 function setup() {
     createCanvas(1200, 1200);
     colorMode(HSB, 360, 100, 100);
@@ -60,35 +61,35 @@ function draw() {
         //     popy[i].x -= popy[i].speed;
         // }
 
-            // if (i < 10) {
-            //     popy[i].y += popy[i].speed;
-            //     popy[i].x += popy[i].speed;
-            //     popy[i].color = 'rgba(224, 176, 148, 1)';
-            // } else if (10 >= i && i <= 20) {
-            //     popy[i].y -= popy[i].speed;
-            //     popy[i].x -= popy[i].speed;
-            //     popy[i].color = 'rgba(71, 148, 230, 1)';
-            // } else if (21 >= i && i <= 30) {
-            //     popy[i].y += popy[i].speed;
-            //     popy[i].x += popy[i].speed;
-            //     popy[i].color = 'rgba(148, 121, 105, 1)';
-            // } else if (31 >= i && i <= 40) {
-            //     popy[i].y -= popy[i].speed;
-            //     popy[i].x += popy[i].speed;
-            //     popy[i].color = 'rgba(106, 138, 173, 1)';
-            // } else if (41 >= i && i <= 50) {
-            //     popy[i].y += popy[i].speed;
-            //     popy[i].x -= popy[i].speed;
-            //     popy[i].color = 'rgba(30, 62, 97, 1)';
-            // } else if (51 >= i && i <= 70) {
-            //     popy[i].y += popy[i].speed;
-            //     popy[i].x -= popy[i].speed;
-            //     popy[i].color = 'rgba(137, 179, 224, 1)';
-            // } else {
-            //     popy[i].y -= popy[i].speed;
-            //     popy[i].x += popy[i].speed;
-            //     popy[i].color = 'rgba(59, 77, 97, 1)';
-            // }
+        // if (i < 10) {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x += popy[i].speed;
+        //     popy[i].color = 'rgba(224, 176, 148, 1)';
+        // } else if (10 >= i && i <= 20) {
+        //     popy[i].y -= popy[i].speed;
+        //     popy[i].x -= popy[i].speed;
+        //     popy[i].color = 'rgba(71, 148, 230, 1)';
+        // } else if (21 >= i && i <= 30) {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x += popy[i].speed;
+        //     popy[i].color = 'rgba(148, 121, 105, 1)';
+        // } else if (31 >= i && i <= 40) {
+        //     popy[i].y -= popy[i].speed;
+        //     popy[i].x += popy[i].speed;
+        //     popy[i].color = 'rgba(106, 138, 173, 1)';
+        // } else if (41 >= i && i <= 50) {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x -= popy[i].speed;
+        //     popy[i].color = 'rgba(30, 62, 97, 1)';
+        // } else if (51 >= i && i <= 70) {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x -= popy[i].speed;
+        //     popy[i].color = 'rgba(137, 179, 224, 1)';
+        // } else {
+        //     popy[i].y -= popy[i].speed;
+        //     popy[i].x += popy[i].speed;
+        //     popy[i].color = 'rgba(59, 77, 97, 1)';
+        // }
 
 
         if (i < 10) {
@@ -148,42 +149,62 @@ ws.onopen = function (event) {
 
 ws.onmessage = function (msg) {
     data = JSON.parse(msg.data);
-    popy = [];
-    rects = [];
-    // if (data.length > 10) {
-    //     data.shift();
-    // }
-    console.log(data);
-    let humidityPopy = data.humidity;
-    let temperaturerects = data.temperature;
 
-    xDirection = data.joystickX/50;
-    yDirection = data.joystickY/50;
+    //checking if number of new data is more or less than old
+    if (popy.length != data.humidity) {
+        let difference = popy.length - data.humidity;
+        let addingNewPopy;
 
-    for (let index = 0; index < humidityPopy; index++) {
-        popy.push(new Bulle(Math.random() * 800 + index, Math.random() * 800 + index));
-    };
-
-    let newRowCounter = 0;
-    let multiplier = 0;
-
-
-    for (let index = 0; index < temperaturerects; index++) {
-        let rectSpaceX = 200 * multiplier;
-        let rectSpaceY = 200 * newRowCounter;
-        multiplier++;
-
-        if (index % 6 == 0 && index != 0) {
-            newRowCounter++;
-            multiplier = 0;
-        }
-        // console.log("rectSpaceX" + rectSpaceX);
+        if (difference < 0) {
+            addingNewPopy = difference * (-1);
+            console.log(addingNewPopy);
+            for (let index = 0; index < addingNewPopy; index++) {
+                popy.push(new Bulle(Math.random() * 800 + index, Math.random() * 800 + index));
+            };
+        } else {
+            addingNewPopy = difference;
+            for (let index = 0; index < addingNewPopy; index++) {
+                popy.pop();
+            };
+        };
 
 
-        rects.push(new Rect(rectSpaceX, rectSpaceY));
-    };
-    isDrawn = false;
-    draw();
+        rects = [];
+        // if (data.length > 10) {
+        //     data.shift();
+        // }
+        // console.log(data);
+        let humidityPopy = data.humidity;
+        let temperaturerects = data.temperature;
+
+        xDirection = data.joystickX / 80;
+        yDirection = data.joystickY / 80;
+
+        // for (let index = 0; index < humidityPopy; index++) {
+        //     popy.push(new Bulle(Math.random() * 800 + index, Math.random() * 800 + index));
+        // };
+
+        let newRowCounter = 0;
+        let multiplier = 0;
+
+
+        for (let index = 0; index < temperaturerects; index++) {
+            let rectSpaceX = 200 * multiplier;
+            let rectSpaceY = 200 * newRowCounter;
+            multiplier++;
+
+            if (index % 6 == 0 && index != 0) {
+                newRowCounter++;
+                multiplier = 0;
+            }
+            // console.log("rectSpaceX" + rectSpaceX);
+
+
+            rects.push(new Rect(rectSpaceX, rectSpaceY));
+        };
+        isDrawn = false;
+        draw();
+    }
 
     // let humidityPopy = msg.humidity;
 };
