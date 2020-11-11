@@ -3,6 +3,8 @@ let popy = [];
 let rects = [];
 
 let isDrawn = true;
+let xDirection;
+let yDirection;
 
 function setup() {
     createCanvas(1200, 1200);
@@ -49,61 +51,93 @@ function draw() {
         popy[i].display();
 
 
-        if (i % 2 == 0) {
-            popy[i].y += popy[i].speed;
-            popy[i].x += popy[i].speed;
-        } else {
-            popy[i].y += popy[i].speed;
-            popy[i].x -= popy[i].speed;
-        }
+
+        // if (i % 2 == 0) {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x += popy[i].speed;
+        // } else {
+        //     popy[i].y += popy[i].speed;
+        //     popy[i].x -= popy[i].speed;
+        // }
+
+            // if (i < 10) {
+            //     popy[i].y += popy[i].speed;
+            //     popy[i].x += popy[i].speed;
+            //     popy[i].color = 'rgba(224, 176, 148, 1)';
+            // } else if (10 >= i && i <= 20) {
+            //     popy[i].y -= popy[i].speed;
+            //     popy[i].x -= popy[i].speed;
+            //     popy[i].color = 'rgba(71, 148, 230, 1)';
+            // } else if (21 >= i && i <= 30) {
+            //     popy[i].y += popy[i].speed;
+            //     popy[i].x += popy[i].speed;
+            //     popy[i].color = 'rgba(148, 121, 105, 1)';
+            // } else if (31 >= i && i <= 40) {
+            //     popy[i].y -= popy[i].speed;
+            //     popy[i].x += popy[i].speed;
+            //     popy[i].color = 'rgba(106, 138, 173, 1)';
+            // } else if (41 >= i && i <= 50) {
+            //     popy[i].y += popy[i].speed;
+            //     popy[i].x -= popy[i].speed;
+            //     popy[i].color = 'rgba(30, 62, 97, 1)';
+            // } else if (51 >= i && i <= 70) {
+            //     popy[i].y += popy[i].speed;
+            //     popy[i].x -= popy[i].speed;
+            //     popy[i].color = 'rgba(137, 179, 224, 1)';
+            // } else {
+            //     popy[i].y -= popy[i].speed;
+            //     popy[i].x += popy[i].speed;
+            //     popy[i].color = 'rgba(59, 77, 97, 1)';
+            // }
+
 
         if (i < 10) {
-            popy[i].y += popy[i].speed;
-            popy[i].x += popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(224, 176, 148, 1)';
         } else if (10 >= i && i <= 20) {
-            popy[i].y -= popy[i].speed;
-            popy[i].x -= popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(71, 148, 230, 1)';
         } else if (21 >= i && i <= 30) {
-            popy[i].y += popy[i].speed;
-            popy[i].x += popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(148, 121, 105, 1)';
         } else if (31 >= i && i <= 40) {
-            popy[i].y -= popy[i].speed;
-            popy[i].x += popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(106, 138, 173, 1)';
         } else if (41 >= i && i <= 50) {
-            popy[i].y += popy[i].speed;
-            popy[i].x -= popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(30, 62, 97, 1)';
         } else if (51 >= i && i <= 70) {
-            popy[i].y += popy[i].speed;
-            popy[i].x -= popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(137, 179, 224, 1)';
         } else {
-            popy[i].y -= popy[i].speed;
-            popy[i].x += popy[i].speed;
+            popy[i].y += yDirection;
+            popy[i].x += xDirection;
             popy[i].color = 'rgba(59, 77, 97, 1)';
-        }
+        };
     }
-
-    // generating rectangles for temperaturevisualization
-    for (let i = 0; i < rects.length; i++) {
-        // fill(popy[i].colorRed, popy[i].colorGreen, popy[i].colorBlue);
-        fill(rects[i].color);
-
-        rects[i].display();
-
-        if(isDrawn == false) {
-            let rectColors = ['RGBA(214,144,139,0.3)', 'RGBA(214,84,75,0.3)', 'rgba(138,54,48,0.3)', 'RGBA(87,34,30,0.3)', 'rgba(157,106,102,0.3)', 'RGBA(214,144,139,0.3)', 'RGBA(214,84,75,0.3)', 'rgba(138,54,48,0.3)', 'RGBA(87,34,30,0.3)', 'rgba(157,106,102,0.3)'];
-            rects[i].color = rectColors[Math.floor(Math.random() * 10)];
-        }
-    }
-    isDrawn = true;
-
 
 }
+
+
+// generating rectangles for temperaturevisualization
+for (let i = 0; i < rects.length; i++) {
+    // fill(popy[i].colorRed, popy[i].colorGreen, popy[i].colorBlue);
+    fill(rects[i].color);
+
+    rects[i].display();
+
+    if (isDrawn == false) {
+        let rectColors = ['RGBA(214,144,139,0.3)', 'RGBA(214,84,75,0.3)', 'rgba(138,54,48,0.3)', 'RGBA(87,34,30,0.3)', 'rgba(157,106,102,0.3)', 'RGBA(214,144,139,0.3)', 'RGBA(214,84,75,0.3)', 'rgba(138,54,48,0.3)', 'RGBA(87,34,30,0.3)', 'rgba(157,106,102,0.3)'];
+        rects[i].color = rectColors[Math.floor(Math.random() * 10)];
+    }
+}
+isDrawn = true;
 
 let ws = new WebSocket("ws://localhost:1880/ws/receive")
 
@@ -123,25 +157,28 @@ ws.onmessage = function (msg) {
     let humidityPopy = data.humidity;
     let temperaturerects = data.temperature;
 
+    xDirection = data.joystickX/50;
+    yDirection = data.joystickY/50;
+
     for (let index = 0; index < humidityPopy; index++) {
         popy.push(new Bulle(Math.random() * 800 + index, Math.random() * 800 + index));
     };
 
     let newRowCounter = 0;
     let multiplier = 0;
-    
+
 
     for (let index = 0; index < temperaturerects; index++) {
         let rectSpaceX = 200 * multiplier;
         let rectSpaceY = 200 * newRowCounter;
         multiplier++;
-        
-            if (index % 6 == 0 && index != 0) {
-                newRowCounter++;
-                multiplier = 0;
-            }
-            // console.log("rectSpaceX" + rectSpaceX);
-        
+
+        if (index % 6 == 0 && index != 0) {
+            newRowCounter++;
+            multiplier = 0;
+        }
+        // console.log("rectSpaceX" + rectSpaceX);
+
 
         rects.push(new Rect(rectSpaceX, rectSpaceY));
     };
