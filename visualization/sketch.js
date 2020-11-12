@@ -164,7 +164,8 @@ ws.onmessage = function (msg) {
         } else {
             addingNewPopy = difference;
             for (let index = 0; index < addingNewPopy; index++) {
-                popy.pop();
+                popy.splice (Math.floor(Math.random()), 1);
+
             };
         };
 
@@ -205,6 +206,5 @@ ws.onmessage = function (msg) {
         isDrawn = false;
         draw();
     }
-
     // let humidityPopy = msg.humidity;
 };
